@@ -23,7 +23,12 @@ public class Bank {
         Account savingsAccount = bank.accounts.get(1);
 
         currentAccount.deposit(500.00);
-        savingsAccount.withdraw(300.00);
+
+        try {
+            savingsAccount.withdraw(300.00);
+        } catch (InvalidValueException e) {
+            System.err.println("Erro: Valor de saque maior que o saldo disponível!");
+        }
 
         try {
             currentAccount.transfer(200.00, savingsAccount);

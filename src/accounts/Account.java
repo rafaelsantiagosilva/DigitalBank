@@ -60,11 +60,12 @@ public abstract class Account implements AccountInterface {
 
      @Override
      public void transfer(double value, Account destinationAccount) throws InvalidValueException {
-          if (value > this.balance)
-               throw new InvalidValueException();
-
-          this.withdraw(value);
-          destinationAccount.deposit(value);
+          try {
+               this.withdraw(value);
+               destinationAccount.deposit(value);
+          } catch (InvalidValueException e) {
+               System.err.println("Erro: Valor de saque maior que o saldo disponível!");
+          }
      }
 
      @Override
